@@ -1,32 +1,33 @@
+import { FlatList } from "react-native";
+import { useState } from "react";
+import { useRoute } from "@react-navigation/native";
+
 import { Header } from "@components/Header";
-import { Container, Form, HeaderList, NumbersOfPlayers } from "./styles";
 import { Highlight } from "@components/Highlight";
 import { ButtonIcon } from "@components/ButtonIcon";
 import { Input } from "@components/Input";
 import { Filter } from "@components/Filter";
-import { FlatList } from "react-native";
-import { useState } from "react";
 import { PlayerCard } from "@components/PlayerCard";
 import EmptyList from "@components/EmptyList";
 import { Button } from "@components/Button";
 
+import { Container, Form, HeaderList, NumbersOfPlayers } from "./styles";
+
+type RouteParams = {
+  group: string;
+};
+
 export function Players() {
   const [team, setTeam] = useState("Time A");
-  const [players, setPlayers] = useState([
-    "Pombo",
-    "Bibi",
-    "Leleco",
-    "Bela",
-    "adsaa",
-  ]);
+  const [players, setPlayers] = useState([]);
+
+  const route = useRoute();
+  const { group } = route.params as RouteParams;
 
   return (
     <Container>
       <Header showBackButton />
-      <Highlight
-        title="Nome da Turma"
-        subtitle="Adicione players ao seu squad"
-      />
+      <Highlight title={group} subtitle="Adicione players ao seu squad" />
       <Form>
         <Input placeholder="Nome da pessoa" autoCorrect={false} />
 
